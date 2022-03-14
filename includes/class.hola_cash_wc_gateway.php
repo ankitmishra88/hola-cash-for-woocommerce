@@ -94,20 +94,8 @@ class HOLA_CASH_WC_GATEWAY extends \WC_Payment_Gateway{
 	}
 
     //load gateway setting options
-    public function admin_options(){ ?>
-
-        <h3><?php _e('Hola.Cash options', 'hola-cash-wc'); ?></h3>
-
-        <table class="form-table">
-            <?php $this->generate_settings_html(); ?>
-        </table>
-
-        <div class='hola-cash-instructions'>
-            <h4>Instructions: </h4>
-            <p>Set the Webhook url to : <?php echo admin_url('admin-ajax.php?action=hola_cash_wc_listen'); ?></p>
-            
-        </div>
-        <?php
+    public function admin_options(){
+        include_once(HOLA_WC_DIR.'/includes/views/hola-cash-admin-settings.php');
     }
 
 	/**
