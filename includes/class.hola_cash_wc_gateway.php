@@ -110,12 +110,12 @@ class HOLA_CASH_WC_GATEWAY extends \WC_Payment_Gateway{
 
 		if ( $order->get_total() > 0 ) {
 			// Mark as on-hold (we're awaiting the payment).
-			$order->update_status( apply_filters( 'woocommerce_bacs_process_payment_order_status', 'on-hold', $order ), __( 'Awaiting BACS payment', 'hola-cash-wc' ) );
+			$order->update_status( apply_filters( 'woocommerce_holacash_process_payment_order_status', 'on-hold', $order ), __( 'Awaiting BACS payment', 'hola-cash-wc' ) );
 		} else {
 			$order->payment_complete();
 		}
 
-
+		//exit();
 		// Remove cart.
 		WC()->cart->empty_cart();
 

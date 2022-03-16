@@ -22,25 +22,46 @@
 
     }
 
-    public function getEndpoint($name){
+    public function getBaseUrl(){
         if($this->is_test){
-            switch($name){
-                case 'create_order':
-                    return 'https://sandbox.api.holacash.mx/v2/order';
-                default:
-                    return '';
-            }
+            return 'https://sandbox.api.holacash.mx';
         }
         else{
-            switch($name){
-                case 'create_order':
-                    return 'https://live.api.holacash.mx/v2/order';
-                default:
-                    return '';
-            }
+            return 'https://live.api.holacash.mx';
         }
     }
 
+    public function getEndpoint($name){
+        
+        $base_url=$this->getBaseUrl();
+        switch($name){
+            case 'create_order':
+                return "{$base_url}/v2/order";
+            case 'merchant_checkout_widget_config':
+                return "{$base_url}/v2/merchant/setting/checkout-widget";
+            default:
+                return '';
+        }
+
+        
+    }
+
+    public function getTransactionConfig(){
+        $url=$this->getEndpoint('merchant_checkout_widget_config');
+        $headers=array(
+            'X-Api-Client-Key'=>$this->private_api_key
+        );
+        $response=wp_remote_get($url,array(
+            'headers'=>$headers
+        ));
+        if(is_wp_error($response)){
+            return $response;
+        }
+    }
+
+    public function charge(){
+        
+    }
 
     public function getIPAddress(){
         $ipaddress = '';

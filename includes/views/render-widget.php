@@ -17,6 +17,7 @@
     
     else:
     ?>
+    <div id="hola_cash_wc_wrapper">
         <!--Required HTML Elements to render Hola.Cash-->
         <div id="instant-holacash-checkout-button">
             <object
@@ -25,6 +26,8 @@
                 data-disabled='true'
             ></object>
         </div>    
+
+    </div>
 
         <!--Let's include connect.js -->
         <script
