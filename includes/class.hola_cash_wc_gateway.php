@@ -115,6 +115,7 @@ class HOLA_CASH_WC_GATEWAY extends \WC_Payment_Gateway{
 			$order->payment_complete();
 		}
 
+
 		// Remove cart.
 		WC()->cart->empty_cart();
 
@@ -125,5 +126,13 @@ class HOLA_CASH_WC_GATEWAY extends \WC_Payment_Gateway{
 		);
 
 	}
+
+    /**
+     * Render Payment Fields using hola.cash connect.js
+     */
+
+    function payment_fields(){
+        include_once(HOLA_WC_DIR.'/includes/views/render-widget.php');
+    }
 
 }

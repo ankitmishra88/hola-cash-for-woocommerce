@@ -10,7 +10,9 @@
         }
 
         function init_gateway(){
+            require_once(HOLA_WC_DIR.'/includes/functions.php');
             require_once(HOLA_WC_DIR.'/includes/class.hola_cash_wc_gateway.php');
+            require_once(HOLA_WC_DIR.'/includes/class.hola_cash_api.php');
             add_filter('woocommerce_payment_gateways', [$this,'add_gateway'],10,1);
         }
 
