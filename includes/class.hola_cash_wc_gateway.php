@@ -50,6 +50,7 @@ class HOLA_CASH_WC_GATEWAY extends \WC_Payment_Gateway{
         $this->public_api_key = $this->get_option('public_api_key');
         $this->private_api_key = $this->get_option('private_api_key');
         $this->test_mode       = $this->get_option('test_mode')=='yes';
+		$this->webhook_key	   = $this->get_option('webhook_key');
 
         
 		
@@ -88,7 +89,13 @@ class HOLA_CASH_WC_GATEWAY extends \WC_Payment_Gateway{
                 'title'=>__('Private API Key','hola-cash-wc'),
                 'type'=>'password',
                 'default'=>''
-            )
+			),
+			'webhook_key'=>array(
+				'title'=>__('Webhook Key','hola-cash-wc'),
+				'type'=>'text',
+				'default'=>'',
+				'description'=>__('This can be configured in your Hola.cash porta','hola-cash-wc')
+			)
 		);
 
 	}

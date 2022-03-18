@@ -15,7 +15,15 @@
             require_once(HOLA_WC_DIR.'/includes/class.hola_cash_wc_gateway.php');
             require_once(HOLA_WC_DIR.'/includes/class.hola_cash_api.php');
             add_filter('woocommerce_payment_gateways', [$this,'add_gateway'],10,1);
+            add_action('wp_ajax_nopriv_hola_cash_wc_listen',[$this,'process_webhook']);
+			add_action('wp_ajax_hola_cash_wc_listen',[$this,'process_webhook']);
         }
+		
+		function process_webhook(){
+			$api=new HOLA_WC_API();
+			$api->process_webhook();
+			wp_send_json(array());
+		}
 
         function add_gateway($gateways){
             $gateways[]='\HOLA_WC\HOLA_CASH_WC_GATEWAY';
