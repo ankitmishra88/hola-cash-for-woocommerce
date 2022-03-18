@@ -17,7 +17,7 @@ const callbacks = {
             return
         }
         console.log('onSuccess', JSON.parse(res))
-        jQuery('#hola_cash_wc_wrapper').append(`<input type='hidden' id='hola_success_response' name='hola_success_response' value='${JSON.stringify(res)}' />`)
+        jQuery('#hola_cash_wc_wrapper').append(`<input type='hidden' id='hola_success_response' name='hola_success_response' value='${res}' />`)
         jQuery('#hola_cash_wc_wrapper').closest('form').submit()
     },
 

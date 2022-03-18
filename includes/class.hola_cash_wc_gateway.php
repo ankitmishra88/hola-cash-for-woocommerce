@@ -108,10 +108,28 @@ class HOLA_CASH_WC_GATEWAY extends \WC_Payment_Gateway{
 
 		$order = wc_get_order( $order_id );
 
-		if ( $order->get_total() > 0 ) {
+		$holacash_success_response=json_decode(stripslashes($_POST['hola_success_response']),true);
+		$holacash_order_id=sanitize_text_field($_POST['holacash_order_id']);
+
+		
+		// var_dump($holacash_success_response);
+		// exit();
+
+		$charge_id=$holacash_success_response['id'];
+		// print_r(array($charge_id,$holacash_order_id));
+		// exit();
+		
+
+		if ( $order->get_total() > 0 && !empty($charge_id) ) {
 			// Mark as on-hold (we're awaiting the payment).
-			$order->update_status( apply_filters( 'woocommerce_holacash_process_payment_order_status', 'on-hold', $order ), __( 'Awaiting BACS payment', 'hola-cash-wc' ) );
-		} else {
+			$order->update_status( apply_filters( 'woocommerce_holacash_process_payment_order_status', 'on-hold', $order ), __( 'Awaiting payment confirmation', 'hola-cash-wc' ) );
+			update_post_meta($order->get_id(),'holacash_order_id',$holacash_order_id);
+			update_post_meta($order->get_id(),'holacash_charge_id',$charge_id);
+		}
+		elseif(empty($charge_id)){
+			$order->update_status('cancelled',"Couldn't create transaction");
+		}
+		else {
 			$order->payment_complete();
 		}
 
