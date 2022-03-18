@@ -11,6 +11,10 @@
         }
 
         function init_gateway(){
+            if ( !class_exists( 'WooCommerce' ) ){
+                //WooCommerc is the core dependency of the plugin
+                return;
+            } 
             require_once(HOLA_WC_DIR.'/includes/functions.php');
             require_once(HOLA_WC_DIR.'/includes/class.hola_cash_wc_gateway.php');
             require_once(HOLA_WC_DIR.'/includes/class.hola_cash_api.php');
